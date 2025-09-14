@@ -1,5 +1,8 @@
 package io.projects.book_service.controller
 
+import io.projects.book_service.dto.BookRequestDTO
+import io.projects.book_service.dto.BookResponseDTO
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
 @RequestMapping("/books")
@@ -25,8 +29,8 @@ class BookController {
     }
 
     @PostMapping
-    fun addBook(): Unit {
-        
+    fun saveBook(@RequestBody @Valid bookDTO: BookRequestDTO): BookResponseDTO {
+        return BookResponseDTO(bookDTO.title);
     }
 
     @PutMapping
