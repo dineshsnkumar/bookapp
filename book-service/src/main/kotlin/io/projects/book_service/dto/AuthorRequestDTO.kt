@@ -1,14 +1,8 @@
-package io.projects.book_service.entity
+package io.projects.book_service.dto
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDate
-import java.util.Date
 
-@Document(collation = "authors")
-data class Author(
-    @Id
-    val id: String? = null,
+data class AuthorRequestDTO (
     val displayName: String,
     val firstName: String? = null,
     val lastName: String? = null,
@@ -18,5 +12,4 @@ data class Author(
     val deathDate: LocalDate? = null,
     val nationality: String? = null,
     val biography: String? = null
-
 )

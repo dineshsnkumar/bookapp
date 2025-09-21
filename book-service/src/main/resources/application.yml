@@ -3,4 +3,12 @@ server:
 
 spring:
   application:
-  name: book-service
+    name: book-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/bookstore
+      host: localhost
+      port: 27017
+      username: admin
+      password: password
+      database: bookstore

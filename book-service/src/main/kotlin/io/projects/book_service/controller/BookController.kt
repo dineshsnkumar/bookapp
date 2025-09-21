@@ -2,6 +2,8 @@ package io.projects.book_service.controller
 
 import io.projects.book_service.dto.BookRequestDTO
 import io.projects.book_service.dto.BookResponseDTO
+import io.projects.book_service.entity.Book
+import io.projects.book_service.service.BookService
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,13 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
 @RequestMapping("/books")
-class BookController {
-
-    val booksList = mutableListOf<String>("Anna Karenina", "War and Peace");
+class BookController (val bookService: BookService){
 
     @GetMapping
-    fun getAllBooks(): List<String> {
-        return booksList
+    fun getAllBooks(): List<Book> {
+        return bookService.getAllBooks()
     }
 
     @GetMapping("/{bookId}")
@@ -29,8 +29,8 @@ class BookController {
     }
 
     @PostMapping
-    fun saveBook(@RequestBody @Valid bookDTO: BookRequestDTO): BookResponseDTO {
-        return BookResponseDTO(bookDTO.title);
+    fun saveBook(@RequestBody @Valid bookRequestDTO: BookRequestDTO): BookResponseDTO {
+        return bookService.saveBook(bookRequestDTO)
     }
 
     @PutMapping
