@@ -1,8 +1,9 @@
 ## BookApp
 
-- A spring boot application for keeping track of read, currently reading and to-read books
+- An application built to keep track of books, get book recommendations, book clubs and for book swapping
 
+### Technologies used
 
-### Description 
-
-- 
+- Java 21
+- Spring Boot kotlin
+- Mongodb
