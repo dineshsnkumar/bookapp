@@ -1,5 +1,6 @@
 package io.projects.book_service.dto
 
+import java.time.Instant
 import java.time.LocalDate
 
 data class AuthorResponseDTO(
@@ -12,5 +13,7 @@ data class AuthorResponseDTO(
     val birthDate: LocalDate? = null,
     val deathDate: LocalDate? = null,
     val nationality: String? = null,
-    val biography: String? = null
+    val biography: String? = null,
+
+    val createdDate: Instant?
 )

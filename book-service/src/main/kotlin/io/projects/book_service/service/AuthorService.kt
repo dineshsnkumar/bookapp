@@ -6,9 +6,10 @@ import io.projects.book_service.dto.BookRequestDTO
 import io.projects.book_service.dto.BookResponseDTO
 import io.projects.book_service.entity.Author
 import io.projects.book_service.entity.Book
+import java.util.Optional
 
 interface AuthorService {
-    fun getAuthorById(id: String): Author?
+    fun getAuthorById(id: String): Optional<Author>
     fun getAllAuthors(): List<Author>
     fun saveAuthor(authorRequestDTO: AuthorRequestDTO): AuthorResponseDTO
     fun updateAuthor(authorRequestDTO: AuthorRequestDTO): Author

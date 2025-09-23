@@ -3,10 +3,11 @@ package io.projects.book_service.service
 import io.projects.book_service.dto.BookRequestDTO
 import io.projects.book_service.dto.BookResponseDTO
 import io.projects.book_service.entity.Book
+import java.util.Optional
 
 interface BookService {
-    fun getBookById(id: String): Book?
-    fun getAllBooks(): List<Book>
+    fun getBookById(id: String): Optional<Book>
+    fun getAllBooks(): List<BookResponseDTO>
     fun saveBook(bookRequestDTO: BookRequestDTO): BookResponseDTO
     fun updateBook(book: BookRequestDTO): Book
     fun deleteBook(id: String): Boolean

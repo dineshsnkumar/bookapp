@@ -9,15 +9,17 @@ import io.projects.book_service.repository.BookRepository
 import io.projects.book_service.service.BookService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.Optional
 
 @Service
 class BookServiceImpl(val bookRepository: BookRepository, val bookRequestMapper: BookRequestMapper, val bookResponseMapper: BookResponseMapper): BookService {
-    override fun getBookById(id: String): Book? {
+    override fun getBookById(id: String): Optional<Book> {
         TODO("Not yet implemented")
     }
 
-    override fun getAllBooks(): List<Book> {
-        return bookRepository.findAll()
+    override fun getAllBooks(): List<BookResponseDTO> {
+         val bookList = bookRepository.findAll()
+        return bookList.map { book -> bookResponseMapper.toResponse(book) }
     }
     @Transactional
     override fun saveBook(bookRequestDTO: BookRequestDTO): BookResponseDTO {
