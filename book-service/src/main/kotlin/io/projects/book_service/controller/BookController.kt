@@ -19,7 +19,7 @@ import java.util.Optional
 
 @RestController
 @RequestMapping("/books")
-class BookController (val bookService: BookService){
+class BookController(val bookService: BookService) {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -29,7 +29,7 @@ class BookController (val bookService: BookService){
 
     @GetMapping("/{bookId}")
     @ResponseStatus(HttpStatus.OK)
-    fun getBookById(@PathVariable("bookId") bookId: String): Optional<Book> {
+    fun getBookById(@PathVariable("bookId") bookId: String): Optional<BookResponseDTO> {
         return bookService.getBookById(bookId)
     }
 
