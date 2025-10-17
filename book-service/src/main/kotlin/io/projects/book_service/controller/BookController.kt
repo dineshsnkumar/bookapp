@@ -41,14 +41,14 @@ class BookController(val bookService: BookService) {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    fun updateBook(book: String): Unit {
-
+    fun updateBook(@RequestBody @Valid bookRequestDTO: BookRequestDTO): BookResponseDTO {
+        return bookService.updateBook(bookRequestDTO)
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteBook(book: String): Unit {
-
+    fun deleteBook(bookId: String): Unit {
+        return bookService.deleteBook(bookId)
     }
 
 }

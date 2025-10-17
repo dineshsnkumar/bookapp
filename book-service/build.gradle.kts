@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
@@ -9,6 +11,8 @@ plugins {
 group = "io.projects"
 version = "0.0.1-SNAPSHOT"
 description = "Book Application Service "
+val imagePrefix = "dineshsnkumar"
+val dockerImageName = "book-service"
 
 java {
 	toolchain {
@@ -45,4 +49,9 @@ tasks.withType<Test> {
 
 noArg {
 	annotation("io.projects.book_service.entity.NoArg")
+}
+
+
+tasks.named<BootBuildImage>("bootBuildImage") {
+	imageName.set("${imagePrefix}/${dockerImageName}:${version}")
 }

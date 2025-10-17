@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.ResponseStatus
 import java.time.LocalDateTime
 
 @ControllerAdvice
@@ -21,8 +20,8 @@ class GlobalExceptionHandler {
         return ResponseEntity(errorResponse, HttpStatus.NOT_FOUND)
     }
 
-    @ExceptionHandler(BookAlreadyExistsException::class)
-    fun handleBookAlreadyExistsException(exception: BookAlreadyExistsException): ResponseEntity<ApiErrorResponse> {
+    @ExceptionHandler(ResourceAlreadyExistsException::class)
+    fun handleBookAlreadyExistsException(exception: ResourceAlreadyExistsException): ResponseEntity<ApiErrorResponse> {
         val errorResponse = ApiErrorResponse(
             timestamp = LocalDateTime.now(),
             status = HttpStatus.CONFLICT.value(),

@@ -9,6 +9,6 @@ interface BookService {
     fun getBookById(id: String): Optional<BookResponseDTO>
     fun getAllBooks(): List<BookResponseDTO>
     fun saveBook(bookRequestDTO: BookRequestDTO): BookResponseDTO
-    fun updateBook(book: BookRequestDTO): Book
-    fun deleteBook(id: String): Boolean
+    fun updateBook(bookRequestDTO: BookRequestDTO): BookResponseDTO
+    fun deleteBook(bookId: String): Unit
 }
