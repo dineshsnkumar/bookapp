@@ -45,9 +45,9 @@ class BookController(val bookService: BookService) {
         return bookService.updateBook(bookRequestDTO)
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{bookId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteBook(bookId: String): Unit {
+    fun deleteBook(@PathVariable("bookId") bookId: String): Unit {
         return bookService.deleteBook(bookId)
     }
 

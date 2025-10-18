@@ -20,12 +20,12 @@ import java.util.Optional
 class AuthorController(val authorService: AuthorService) {
 
     @GetMapping("/{authorId}")
-    fun getAuthorById(@PathVariable authorId: String): Optional<Author> {
+    fun getAuthorById(@PathVariable("authorId") authorId: String): Optional<AuthorResponseDTO> {
         return authorService.getAuthorById(authorId)
     }
 
     @GetMapping
-    fun getAllAuthors(): List<Author> {
+    fun getAllAuthors(): List<AuthorResponseDTO> {
         return authorService.getAllAuthors()
     }
 
@@ -35,13 +35,13 @@ class AuthorController(val authorService: AuthorService) {
     }
 
     @PutMapping
-    fun updateAuthor(@RequestBody @Valid authorRequestDTO: AuthorRequestDTO): Author {
+    fun updateAuthor(@RequestBody @Valid authorRequestDTO: AuthorRequestDTO): AuthorResponseDTO {
         return authorService.updateAuthor(authorRequestDTO)
     }
 
-    @DeleteMapping
-    fun deleteAuthor(id: String): Boolean {
-        return authorService.deleteAuthor(id)
+    @DeleteMapping("/{authorId}")
+    fun deleteAuthor(@PathVariable("authorId") authorId: String) {
+        return authorService.deleteAuthor(authorId)
     }
 
 }

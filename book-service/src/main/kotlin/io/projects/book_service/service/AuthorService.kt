@@ -9,9 +9,9 @@ import io.projects.book_service.entity.Book
 import java.util.Optional
 
 interface AuthorService {
-    fun getAuthorById(id: String): Optional<Author>
-    fun getAllAuthors(): List<Author>
+    fun getAuthorById(authorId: String): Optional<AuthorResponseDTO>
+    fun getAllAuthors(): List<AuthorResponseDTO>
     fun saveAuthor(authorRequestDTO: AuthorRequestDTO): AuthorResponseDTO
-    fun updateAuthor(authorRequestDTO: AuthorRequestDTO): Author
-    fun deleteAuthor(id: String): Boolean
+    fun updateAuthor(authorRequestDTO: AuthorRequestDTO): AuthorResponseDTO
+    fun deleteAuthor(authorId: String): Unit
 }
