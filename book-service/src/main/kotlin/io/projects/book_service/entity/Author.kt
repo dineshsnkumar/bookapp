@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 import java.time.Instant
 import java.time.LocalDate
 
-@Document(collation = "authors")
+@Document(collection = "authors")
 data class Author(
     @Id
     val id: String? = null,
