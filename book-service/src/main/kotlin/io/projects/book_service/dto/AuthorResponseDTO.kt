@@ -16,4 +16,6 @@ data class AuthorResponseDTO(
     val biography: String? = null,
 
     val createdDate: Instant?
-)
+) {
+    companion object
+}
