@@ -14,9 +14,15 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.any
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import java.time.Instant
 import java.time.LocalDateTime
+import java.util.Optional
 import java.util.UUID
 import kotlin.test.Test
 
@@ -32,7 +38,7 @@ class AuthorServiceImplTest {
     private lateinit var authorResponseMapper: AuthorResponseMapper
 
     @InjectMocks
-    private lateinit var authorService: AuthorService
+    private lateinit var authorService: AuthorServiceImpl
 
     private lateinit var authorRequestDTO: AuthorRequestDTO
     private lateinit var authorResponseDTO: AuthorResponseDTO
@@ -48,8 +54,24 @@ class AuthorServiceImplTest {
 
     @Test
     fun savedAuthorSuccessfully(){
-        authorService.saveAuthor(authorRequestDTO)
+        whenever(authorRequestMapper.toEntity(authorRequestDTO)).thenReturn(author)
+        whenever(authorResponseMapper.toResponse(author)).thenReturn(authorResponseDTO)
+        whenever(authorRepository.save<Author>(author)).thenReturn(author)
 
+        val authorResponse = authorService.saveAuthor(authorRequestDTO)
+
+        assertEquals("Leo Tolstoy", authorResponse.displayName)
+        verify(authorRepository, times(1)).save(author)
+    }
+
+    @Test
+    fun getAuthorSuccessfully(){
+        whenever(authorRepository.findById(String())).thenReturn(Optional.of<Author>(author))
+        whenever(authorResponseMapper.toResponse(author)).thenReturn(authorResponseDTO)
+
+        val authorResponse = authorService.getAuthorById(UUID.randomUUID().toString())
+
+        assertEquals("Leo Tolstoy", authorResponse.get().displayName)
     }
 
 }
