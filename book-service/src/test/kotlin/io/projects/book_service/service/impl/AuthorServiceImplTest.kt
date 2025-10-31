@@ -3,6 +3,7 @@ package io.projects.book_service.service.impl
 import io.projects.book_service.dto.AuthorRequestDTO
 import io.projects.book_service.dto.AuthorResponseDTO
 import io.projects.book_service.entity.Author
+import io.projects.book_service.exception.ResourceNotFoundException
 import io.projects.book_service.mapper.AuthorRequestMapper
 import io.projects.book_service.mapper.AuthorResponseMapper
 import io.projects.book_service.repository.AuthorRepository
@@ -17,6 +18,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argThat
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -62,16 +64,40 @@ class AuthorServiceImplTest {
 
         assertEquals("Leo Tolstoy", authorResponse.displayName)
         verify(authorRepository, times(1)).save(author)
+
+        verify(authorRepository).save(argThat { author -> author.displayName.equals("Leo Tolstoy") })
     }
 
     @Test
     fun getAuthorSuccessfully(){
-        whenever(authorRepository.findById(String())).thenReturn(Optional.of<Author>(author))
-        whenever(authorResponseMapper.toResponse(author)).thenReturn(authorResponseDTO)
+        val authorId = UUID.randomUUID().toString()
+        val currAuthor = Author("Leo Tolstoy", authorId, createdDate = Instant.now())
+        val authorResponseDTO = AuthorResponseDTO(displayName = "Leo Tolstoy", id = authorId, createdDate = Instant.now())
+        whenever(authorRepository.findById(authorId)).thenReturn(Optional.of<Author>(currAuthor))
+        whenever(authorResponseMapper.toResponse(currAuthor)).thenReturn(authorResponseDTO)
 
-        val authorResponse = authorService.getAuthorById(UUID.randomUUID().toString())
+        val authorResponse = authorService.getAuthorById(authorId)
 
         assertEquals("Leo Tolstoy", authorResponse.get().displayName)
+        verify(authorRepository, times(1)).findById(authorId)
+    }
+
+    @Test
+    fun updateAuthorNotFound(){
+        val authorId = UUID.randomUUID().toString()
+        val requestDTO = AuthorRequestDTO("Leo Tolstoy", authorId)
+
+        whenever(authorRepository.findById(authorId)).thenReturn(Optional.empty())
+
+        val resourceNotFoundException = assertThrows(ResourceNotFoundException::class.java){
+            authorService.updateAuthor(requestDTO)
+        }
+
+        assert(resourceNotFoundException.message!!.contains("Author with authorId ${authorId} does not exist"))
+
+        verify(authorRepository).findById(authorId)
+
+
     }
 
 }
