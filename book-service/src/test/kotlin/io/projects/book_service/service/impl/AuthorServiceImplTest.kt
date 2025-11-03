@@ -85,7 +85,7 @@ class AuthorServiceImplTest {
     @Test
     fun updateAuthorNotFound(){
         val authorId = UUID.randomUUID().toString()
-        val requestDTO = AuthorRequestDTO("Leo Tolstoy", authorId)
+        val requestDTO = AuthorRequestDTO(authorId= authorId, displayName = "Leo Tolstoy")
 
         whenever(authorRepository.findById(authorId)).thenReturn(Optional.empty())
 
