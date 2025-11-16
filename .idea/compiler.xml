@@ -2,6 +2,9 @@
 <project version="4">
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="book-search-service" options="-parameters" />
+      <module name="book-search-service.main" options="-parameters" />
+      <module name="book-search-service.test" options="-parameters" />
       <module name="book-service" options="-parameters" />
       <module name="book-service.main" options="-parameters" />
       <module name="book-service.test" options="-parameters" />
