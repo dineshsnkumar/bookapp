@@ -38,3 +38,12 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+# Elasticsearch runtime files and directories
+logs/
+data/
+# Ignore specific file extensions that Elasticsearch might generate if not in the logs/ or data/ dirs
+*.log
+*.lock
+# Ignore artifacts if you are running test instances within your project directory
+elasticsearch*/
